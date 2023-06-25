@@ -2,9 +2,9 @@
 
 WARNING! Use at your own risk!
 
-These steps specifically downgrade the security of DNS over TLS (DoT) and DNS over HTTPS (DoH) to cleartext old-school DNS.
+These steps specifically downgrade the security of DNS over TLS (DoT) and DNS over HTTPS (DoH) to cleartext old-school DNS on the inside of your netowrk.  The Unbound outbound forwarding settings will still allow DoT connections to your outside forwarders provided they support DoT over port 853.
 
-This post is specific to users running Netgate pfSense Plus 23.05 with pfBlockerNG 3.2.0_5 and Windows machines using Chormium-based browsers.
+The following is specific to users running Netgate pfSense Plus 23.05 with pfBlockerNG 3.2.0_5 and Windows machines using Chormium-based browsers.
 
 pfSense Plus Firewall information:
 Based on pfSense 2.6.0 CE upgraded to pfSense Plus 23.05 (personal/lab use license).
@@ -35,7 +35,17 @@ Recommended System Patches for Netgate pfSense® Plus software version 23.05 as 
 * Fix missing ngeth interfaces triggering reassignment (Redmine #14410)				
 * Fix Captive Portal PHP error when processing used MACs (Redmine #14446)				
 
-Unbound Resolver
+Unbound Resolver<br>
+General DNS Resolver Options<br>
+* Enable SSL/TLS Service Respond to incoming SSL/TLS queries from local clients - disabled
+* Network Interfaces - Select the inside interfaces you want to listen on.
+* Outgoing Network Interfaces - Select your WAN and WANv6 interfaces for outbound forwarding.
+* Python Module - Enable Python Module - enabled
+* Python Module Order - Pre Validator
+* Python Module Script - pfb_unbound
+* DNS Query Forwarding - Enable Forwarding Mode - enabled.
+* DNS Query Forwarding - Use SSL/TLS for outgoing DNS Queries to Forwarding Servers - enabled.
+
 
 System DNS server(s)
 * 127.0.0.1
@@ -62,12 +72,10 @@ Set pfBlockerNG configuration settings:
 google.com<br>
 www.google.com<br>
 
-Under pfBlockerNG / Update set Force Option "Reload" and Reload Option "All", click Run to reload pfBlockerNG.
+Under pfBlockerNG / Update set Force Option "Reload" and Reload Option "All", click Run to reload pfBlockerNG and Unbound Resolver.
 
 Under Firewall / Rules, set internal LAN based IPv6 interfaces to allow port 53 (DNS) but NOT port 853 (DNS over TLS) with
-destination set to "This Firewall".
-
-I use a port alias group for globally allowed outbound IP services, just don't add 853 to the list.
+destination set to "This Firewall".  I use a port alias group for globally allowed outbound IP services, just don't add 853 to the list.
 
 At this point the firewall will block DoT and AAAA lookups for google.com and www.google.com.  However, that's not the end.
 
@@ -77,8 +85,8 @@ the lookups to google and will result in the 403 "no soup for you" messages we'r
 
 I can't help with the mobile devices but for Windows it's relativly simple to set a few policy based registry keys to disable the
 browser's built-in DNS client.  Setting these values will force ALL DNS queries from the browser to go through the OS DNS client
-in the clear and hence to the firewall in the clear where pfBlockerNG will catch them and force a standard IPv4-only A lookup for
-the domains listed in the Python no AAAA list.
+in the clear and hence to the firewall in the clear where pfBlockerNG will catch them and force a standard IPv4-only 'A' lookup for
+the domains listed in the Python no 'AAAA' list.
 
 Since the HE.net Tunnelbroker service is mainly for learning, testing, and IPv6 certification it should NOT be used in a production environment.
 With that said, having done both network administration as well as information security I'm going to let the admin in me win this argument
