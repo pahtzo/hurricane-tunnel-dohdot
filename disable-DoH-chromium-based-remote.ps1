@@ -33,8 +33,8 @@ $cred = Get-Credential
 
 $pcs = ('PC1','PC2','PC3')
 
-# Google Chrome
 Invoke-Command -ScriptBlock {
+# Google Chrome
 New-Item -Path 'HKLM:\Software\Policies\Google\Chrome' -Force
 New-ItemProperty -Path 'HKLM:\Software\Policies\Google\Chrome' -Name 'DnsOverHttpMode' -Value 'off' -PropertyType String
 New-ItemProperty -Path 'HKLM:\Software\Policies\Google\Chrome' -Name 'BuiltInDnsClientEnabled' -Value 0x0 -PropertyType Dword
@@ -43,7 +43,6 @@ New-Item -Path 'HKLM:\Software\Policies\BraveSoftware\Brave' -Force
 New-ItemProperty -Path 'HKLM:\Software\Policies\BraveSoftware\Brave' -Name 'DnsOverHttpMode' -Value 'off' -PropertyType String
 New-ItemProperty -Path 'HKLM:\Software\Policies\BraveSoftware\Brave' -Name 'BuiltInDnsClientEnabled' -Value 0x0 -PropertyType Dword
 # Microsoft Edge
-Invoke-Command -ScriptBlock {
 New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Force
 New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DnsOverHttpMode' -Value 'off' -PropertyType String
 New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BuiltInDnsClientEnabled' -Value 0x0 -PropertyType Dword
