@@ -35,19 +35,7 @@ Recommended System Patches for Netgate pfSense® Plus software version 23.05 as 
 * Fix missing ngeth interfaces triggering reassignment (Redmine #14410)				
 * Fix Captive Portal PHP error when processing used MACs (Redmine #14446)				
 
-Unbound Resolver<br>
-General DNS Resolver Options<br>
-* Enable SSL/TLS Service Respond to incoming SSL/TLS queries from local clients - disabled
-* Network Interfaces - Select the inside interfaces you want to listen on.
-* Outgoing Network Interfaces - Select your WAN and WANv6 interfaces for outbound forwarding.
-* Python Module - Enable Python Module - enabled
-* Python Module Order - Pre Validator
-* Python Module Script - pfb_unbound
-* DNS Query Forwarding - Enable Forwarding Mode - enabled.
-* DNS Query Forwarding - Use SSL/TLS for outgoing DNS Queries to Forwarding Servers - enabled.
-
-
-System DNS server(s)
+System DNS server(s) - We use the 1.1.1.1 for Families to block malware and adult content.  You don't have to change yours, I'm just listing out my own configuration for reference.
 * 127.0.0.1
 * 1.1.1.3
 * 1.0.0.3
@@ -62,6 +50,17 @@ HE.net TunnelBroker configuration:
 * DHCPv6 enabled with RA Managed flags.
 
 Keep in mind, as always, BACKUP your firewall BEFORE proceeding!  
+
+Unbound Resolver<br>
+General DNS Resolver Options<br>
+* Enable SSL/TLS Service Respond to incoming SSL/TLS queries from local clients - disabled
+* Network Interfaces - Select the inside interfaces you want to listen on.
+* Outgoing Network Interfaces - Select your WAN and WANv6 interfaces for outbound forwarding.
+* Python Module - Enable Python Module - enabled
+* Python Module Order - Pre Validator
+* Python Module Script - pfb_unbound
+* DNS Query Forwarding - Enable Forwarding Mode - enabled.
+* DNS Query Forwarding - Use SSL/TLS for outgoing DNS Queries to Forwarding Servers - enabled.
 
 Set pfBlockerNG configuration settings:
 * pfBlockerNG Python Unbound mode enabled.
@@ -112,3 +111,4 @@ These are non-discriminatory, they set the policy keys and values for all three 
 * disable-DoH-chromium-based.ps1 - For use on a single PC in an Administrator elevated Powershell session.
 * disable-DoH-chromium-based-remote.ps1 - For remote installation on multiple PCs via Invoke-Command with Administrator
   credentials from a non-elevated Powershell session.
+  
