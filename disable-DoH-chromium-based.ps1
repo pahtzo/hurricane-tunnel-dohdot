@@ -15,7 +15,6 @@ From this prompt type:
 This will add the new policies for Chrome, Brave, and Edge browsers.
 
 Close all browsers and test.
-
 #>
 
 # Google Chrome
@@ -30,3 +29,4 @@ New-ItemProperty -Path 'HKLM:\Software\Policies\BraveSoftware\Brave' -Name 'Buil
 New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Force
 New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DnsOverHttpMode' -Value 'off' -PropertyType String
 New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BuiltInDnsClientEnabled' -Value 0x0 -PropertyType Dword
+
