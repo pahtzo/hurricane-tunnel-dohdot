@@ -63,9 +63,9 @@ General DNS Resolver Options<br>
 * DNS Query Forwarding - Use SSL/TLS for outgoing DNS Queries to Forwarding Servers - enabled.
 
 Set pfBlockerNG configuration settings:
-* pfBlockerNG Python Unbound mode enabled.
-* pfBlockerNG DNSBL CNAME Validation enabled.
-* pfBlockerNG DNSBL no AAAA enabled.
+* pfBlockerNG Python Unbound mode - enabled.
+* pfBlockerNG DNSBL CNAME Validation - enabled.
+* pfBlockerNG DNSBL no AAAA - enabled.
 * pfBlockerNG DNSBL Python no AAAA List:
 
 google.com<br>
